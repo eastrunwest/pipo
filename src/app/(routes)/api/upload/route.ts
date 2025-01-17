@@ -11,8 +11,10 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.formData();
     const file: File | null = data.get("file") as unknown as File;
+    // const info = await pinata.groups.create({name:'pipo', isPublic:true});
+    // console.log(info);
     const uploadData = await pinata.upload.file(file, {
-      groupId: '0192a05d-fca0-71e5-a9cb-48fa20233205',
+      groupId: '01947615-8e47-775e-9e73-e030f0e207d2',
     });
     const fileUrl = `https://${process.env.NEXT_PUBLIC_PINATA_GATEWAY_URL}/files/${uploadData.cid}`;
     return NextResponse.json(fileUrl, { status: 200 });
