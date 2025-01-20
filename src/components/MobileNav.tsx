@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { CameraIcon, HomeIcon, LayoutGridIcon, SearchIcon, SendIcon, UserIcon } from 'lucide-react';
+import { CameraIcon, HomeIcon, LayoutGridIcon, Scale, ScaleIcon, SearchIcon, SendIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -32,7 +32,7 @@ export default function MobileNav() {
           <div className="absolute bg-blue-500 bg-clip-text border-white dark:border-gray-700 border-t-transparent dark:border-t-transparent border-l-transparent dark:border-l-transparent border-[50px] rounded-full rotate-45">
             <div className="border-4 size-15 border-transparent">
               <Link href="/create" className="-rotate-45 bg-gradient-to-tr from-ig-orange to-ig-red to-70% size-12 flex items-center justify-center text-white rounded-full">
-                <SendIcon onClick={() => handleTabClick('/create')} />
+                <ScaleIcon onClick={() => handleTabClick('/create')} />
               </Link>
             </div>
           </div>

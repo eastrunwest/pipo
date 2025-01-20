@@ -1,18 +1,36 @@
 import PostsGrid from "@/components/PostsGrid";
-import {prisma} from "@/db";
+import { prisma } from "@/db";
+import Preloader from "@/components/Preloader";
+import SearchForm from "@/components/SearchForm";
+import SearchResults from "@/components/SearchResults";
+import { Suspense } from "react";
 
-export default async function BrowsePage() {
+
+export default async function BrowsePage({
+  searchParams: { query },
+}: {
+  searchParams: { query: string },
+}) {
   const posts = await prisma.post.findMany({
-    orderBy: {createdAt: 'desc'},
+    orderBy: { createdAt: 'desc' },
     take: 100,
   });
   return (
     <div>
-      {/*<div className="mb-4">*/}
-      {/*  <h1 className="text-4xl font-bold text-slate-900">Browse</h1>*/}
-      {/*  <p className="text-gray-500">Check trending posts and find some inspiration</p>*/}
-      {/*</div>*/}
-      <PostsGrid posts={posts}/>
+      <div className="w-full">
+        <div className="max-w-md mx-auto fixed top-0 left-0 right-0 z-10 p-4">
+          <SearchForm />
+        </div>
+        {typeof query !== 'undefined' && (
+          <Suspense fallback={<Preloader />}>
+            <SearchResults query={query} />
+          </Suspense>
+        )}
+
+      </div>
+      <div className="mt-12">
+        <PostsGrid posts={posts} />
+      </div>
     </div>
   );
 }
