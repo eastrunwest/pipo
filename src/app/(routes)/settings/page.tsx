@@ -6,7 +6,7 @@ import {Button} from "@radix-ui/themes";
 export default async function SettingsPage() {
   const session = await auth();
   if (!session?.user?.email) {
-    return 'not logged in';
+    return 'please login';
   }
   const profile = await prisma.profile.findFirst({
     where: {email: session.user.email},
