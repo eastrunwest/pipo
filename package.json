@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/themes": "^3.1.6",
     "@types/lodash": "^4.17.12",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.471.1",
+    "lucide-react": "^0.473.0",
     "next": "^14.0.0",
     "next-auth": "^5.0.0-beta.3",
     "oidc-token-hash": "^5.0.3",
@@ -25,7 +29,9 @@
     "react-dom": "^18",
     "react-masonry-css": "^1.0.16",
     "react-preloaders": "^3.0.3",
-    "react-spinners": "^0.14.1"
+    "react-spinners": "^0.14.1",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",

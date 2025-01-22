@@ -3,7 +3,7 @@ import {postEntry} from "@/actions";
 import {Button, TextArea} from "@radix-ui/themes";
 import {CloudUploadIcon, SendIcon} from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
-import {useRouter} from "next/navigation";
+import {redirect, useRouter} from "next/navigation";
 import {useEffect, useRef, useState} from "react";
 
 export default function CreatePage() {
@@ -14,18 +14,7 @@ export default function CreatePage() {
   const router = useRouter();
   const { data: session } = useSession()
   if (!session) {
-    return <div className="">
-          {
-            <form action={async () => {
-              await signIn('google');
-            }}>
-              <button
-                className="border px-4 py-2 bg-ig-red text-white rounded-lg"
-                type="submit">Login with google
-              </button>
-            </form>
-          }
-        </div>;
+    return redirect('/login');
   }
 
   useEffect(() => {
