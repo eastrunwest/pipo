@@ -1,11 +1,12 @@
 import DesktopNav from "@/components/DesktopNav";
 import MobileNav from "@/components/MobileNav";
 import ThemeObserver from "@/components/ThemeObserver";
-import {Theme} from "@radix-ui/themes";
+import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
 import "@radix-ui/themes/styles.css";
+import { SessionProvider as NextAuthProvider } from 'next-auth/react';
 
 
 const geistSans = localFont({
@@ -35,18 +36,21 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-black dark:text-red-500`}>
-        <Theme>
-          {modal}
-          <div className="flex min-h-screen dark:bg-gray-800 dark:text-gray-300">
-            <DesktopNav />
-            <div className="pb-24 ld:pb-4 pt-4 px-4 lg:px-8 flex justify-around w-full">
-              <div className="w-full">
-                {children}
+        <NextAuthProvider>
+          <Theme>
+            {modal}
+            <div className="flex min-h-screen dark:bg-gray-800 dark:text-gray-300">
+
+              <DesktopNav />
+              <div className="pb-24 ld:pb-4 pt-4 px-4 lg:px-8 flex justify-around w-full">
+                <div className="w-full">
+                  {children}
+                </div>
               </div>
             </div>
-          </div>
-          <MobileNav />
-        </Theme>
+            <MobileNav />
+          </Theme>
+        </NextAuthProvider>
         <ThemeObserver />
       </body>
     </html>

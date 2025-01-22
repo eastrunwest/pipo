@@ -8,7 +8,7 @@ export default async function ProfilePage() {
   const session = await auth();
   if (!session) {
     return <div className="">
-      {!session && (
+      {
         <form action={async () => {
           'use server';
           await signIn('google');
@@ -18,8 +18,8 @@ export default async function ProfilePage() {
             type="submit">Login with google
           </button>
         </form>
-      )}
-    </div>
+      }
+    </div>;
   }
 
   const profile = await prisma.profile
