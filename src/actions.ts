@@ -1,10 +1,10 @@
 'use server';
 
-import {auth} from "@/auth";
-import {prisma} from "@/db";
-import {uniq} from "lodash";
+import { auth } from "@/auth";
+import { prisma } from "@/db";
+import { uniq } from "lodash";
 
-export async function getSessionEmail(): Promise<string|null|undefined> {
+export async function getSessionEmail(): Promise<string | null | undefined> {
   const session = await auth();
   return session?.user?.email;
 }
@@ -12,7 +12,7 @@ export async function getSessionEmail(): Promise<string|null|undefined> {
 export async function getSessionEmailOrThrow(): Promise<string> {
   const userEmail = await getSessionEmail();
   if (!userEmail) {
-    throw 'not logged in';
+    throw new Error('not logged in');
   }
   return userEmail;
 }
