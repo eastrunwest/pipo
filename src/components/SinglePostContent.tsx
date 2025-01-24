@@ -6,6 +6,7 @@ import SessionCommentForm from "@/components/SessionCommentForm";
 import {Post, Profile, Comment as CommentModel, Like, Bookmark} from "@prisma/client";
 import {BookmarkIcon} from "lucide-react";
 import {Suspense} from "react";
+import EventDetail from "./EventDetail";
 
 export default function SinglePostContent({
   post,
@@ -31,9 +32,9 @@ export default function SinglePostContent({
             src={post.image} alt={post.description}/>
         </div>
         <div>
-          <Comment
-            createdAt={post.createdAt}
-            text={post.description} authorProfile={authorProfile}/>
+          <EventDetail
+            createdAt={post.createdAt} title={post.title}
+            description={post.description} authorProfile={authorProfile}/>
           <div className="pt-4 flex flex-col gap-4">
             {comments.map(comment => (
               <div key={comment.id}>

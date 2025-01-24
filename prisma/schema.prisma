@@ -27,6 +27,7 @@ model Post {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   author      String
   image       String
+  title       String?
   description String
   likesCount  Int      @default(0)
   createdAt   DateTime @default(now())

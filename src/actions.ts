@@ -44,6 +44,7 @@ export async function postEntry(data: FormData) {
     data: {
       author: sessionEmail,
       image: data.get('image') as string,
+      title: data.get('title') as string || '',
       description: data.get('description') as string || '',
     },
   });

@@ -48,7 +48,6 @@ export default function CreatePage() {
         } catch (error) {
           if (error instanceof Error) {
             if (error.message === 'not logged in') {
-              // Handle not logged in error
               router.push('/login');
             } else {
               throw error;
@@ -85,7 +84,10 @@ export default function CreatePage() {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <TextArea name="description" className="h-16" placeholder="Add photo description..." />
+          <TextArea name="title" className="h-16" placeholder="Add event title..." />
+        </div>
+        <div className="flex flex-col gap-2">
+          <TextArea name="description" className="h-16" placeholder="Add event description..." />
         </div>
       </div>
       <div className="flex mt-4 justify-center">
