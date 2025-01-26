@@ -32,6 +32,8 @@ model Post {
   likesCount  Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  agreeCount  Int      @default(0)
+  disagreeCount Int    @default(0)
 }
 
 model Comment {
@@ -63,4 +65,18 @@ model Follower {
   followingProfileId    String   @db.ObjectId
   followedProfileId     String   @db.ObjectId
   createdAt             DateTime @default(now())
+}
+
+model Agree {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String   @db.ObjectId
+  author    String
+  createdAt DateTime @default(now())
+}
+
+model Dsiagree {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String   @db.ObjectId
+  author    String
+  createdAt DateTime @default(now())
 }

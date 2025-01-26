@@ -37,7 +37,7 @@ export default function LikesInfo({
         <HeartIcon className={likedByMe ? 'text-red-500 fill-red-500' : 'dark:text-white'}/>
       </button>
       {showText && (
-        <p>{post.likesCount} people like this</p>
+        <p>{post.likesCount} likes </p>
       )}
     </form>
   );
