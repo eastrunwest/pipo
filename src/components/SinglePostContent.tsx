@@ -35,7 +35,7 @@ export default function SinglePostContent({
         </div>
         <div>
           <EventDetail
-            createdAt={post.createdAt} title={post.title}
+            createdAt={post.createdAt} title={post.title  || ""}
             description={post.description} authorProfile={authorProfile} />
           <ProbabilityChart />
           <EventDetailPieChart />
