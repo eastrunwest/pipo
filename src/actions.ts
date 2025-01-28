@@ -165,3 +165,75 @@ export async function unbookmarkPost(postId:string) {
     },
   });
 }
+
+async function updateEventAgreesCount(postId: string) {//get all agrees for a post
+  await prisma.post.update({
+    where:{id:postId},
+    data:{
+      likesCount: await prisma.agree.count({where:{postId}}),
+    },
+  });
+}
+
+async function getAgreesCountUntilDate(postId: string, date: Date) {//get all agrees for a post until a certain date
+  const endDate = new Date(date);
+  endDate.setHours(23, 59, 59, 999);
+
+  const agreeCount = await prisma.agree.count({
+    where: {
+      postId,
+      createdAt: {
+        lte: endDate,
+      },
+    },
+  });
+
+  return agreeCount;
+}
+
+async function updateEventDisagreesCount(postId: string) {//get all disagrees for a post
+  await prisma.post.update({
+    where:{id:postId},
+    data:{
+      likesCount: await prisma.disagree.count({where:{postId}}),
+    },
+  });
+}
+
+async function getDisagreesCountUntilDate(postId: string, date: Date) {//get all disagrees for a post until a certain date
+  const endDate = new Date(date);
+  endDate.setHours(23, 59, 59, 999);
+
+  const agreeCount = await prisma.agree.count({
+    where: {
+      postId,
+      createdAt: {
+        lte: endDate,
+      },
+    },
+  });
+
+  return agreeCount;
+}
+
+export async function agreeEvent(data: FormData) {
+  const postId = data.get('postId') as string;
+  await prisma.agree.create({
+    data: {
+      author: await getSessionEmailOrThrow(),
+      postId,
+    },
+  });
+  await updatePostLikesCount(postId);
+}
+
+export async function disagreeEvent(data: FormData) {
+  const postId = data.get('postId') as string;
+  await prisma.disagree.deleteMany({
+    where: {
+      postId,
+      author: await getSessionEmailOrThrow(),
+    },
+  });
+  await updatePostLikesCount(postId);
+}

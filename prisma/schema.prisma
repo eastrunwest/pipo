@@ -74,7 +74,7 @@ model Agree {
   createdAt DateTime @default(now())
 }
 
-model Dsiagree {
+model Disagree {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   postId    String   @db.ObjectId
   author    String

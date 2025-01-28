@@ -8,7 +8,7 @@ import { Post, Profile, Comment as CommentModel, Like, Bookmark } from "@prisma/
 import { BookmarkIcon } from "lucide-react";
 import EventDetail from "./EventDetail";
 import ProbabilityChart from "./ProbabilityChart";
-import EventDetailPieChart from './EventDetailPieChart';
+import EventDetailChart from './EventDetailChart';
 
 export default function SinglePostContent({
   post,
@@ -38,7 +38,7 @@ export default function SinglePostContent({
             createdAt={post.createdAt} title={post.title  || ""}
             description={post.description} authorProfile={authorProfile} />
           <ProbabilityChart />
-          <EventDetailPieChart />
+          <EventDetailChart />
           <div className="pt-4 flex flex-col gap-4">
             {comments.map(comment => (
               <div key={comment.id}>
