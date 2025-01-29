@@ -33,7 +33,7 @@ export default function Agree({
         <HeartIcon className={agreeByMe ? 'text-red-500 fill-red-500' : 'dark:text-white'}/>
       </button>
       {showText && (
-        <p>{post.likesCount} likes </p>
+        <p>{post.agreeCount} 赞同 </p>
       )}
     </form>
   );

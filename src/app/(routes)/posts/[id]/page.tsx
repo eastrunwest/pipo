@@ -4,7 +4,7 @@ import SinglePostContent from "@/components/SinglePostContent";
 export default async function SinglePostPage({params}:{params:{id:string}}) {
   const {
     post, authorProfile, comments,
-    commentsAuthors, myLike, myBookmark,
+    commentsAuthors, myLike, myBookmark,myAgree,myDisagree,
   } = await getSinglePostData(params.id);
   return (
       <SinglePostContent
@@ -14,6 +14,8 @@ export default async function SinglePostPage({params}:{params:{id:string}}) {
         commentsAuthors={commentsAuthors}
         myLike={myLike}
         myBookmark={myBookmark}
+        myAgree={myAgree}
+        myDisagree={myDisagree}
       />
   );
 }

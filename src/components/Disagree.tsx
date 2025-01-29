@@ -33,7 +33,7 @@ export default function Disagree({
         <HeartIcon className={disagreeByMe ? 'text-red-500 fill-red-500' : 'dark:text-white'}/>
       </button>
       {showText && (
-        <p>{post.likesCount} likes </p>
+        <p>{post.disagreeCount} 反对 </p>
       )}
     </form>
   );

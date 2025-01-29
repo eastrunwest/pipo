@@ -115,9 +115,21 @@ export async function getSinglePostData(postId:string) {
       postId: post.id,
     }
   });
+  const myAgree = await prisma.agree.findFirst({
+    where: {
+      author: sessionEmail,
+      postId: post.id,
+    }
+  });
+  const myDisagree = await prisma.disagree.findFirst({
+    where: {
+      author: sessionEmail,
+      postId: post.id,
+    }
+  });
   return {
     post, authorProfile, comments,
-    commentsAuthors, myLike, myBookmark,
+    commentsAuthors, myLike, myBookmark,myAgree,myDisagree,
   };
 }
 
