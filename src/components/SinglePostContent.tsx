@@ -43,7 +43,7 @@ export default function SinglePostContent({
             createdAt={post.createdAt} title={post.title  || ""}
             description={post.description} authorProfile={authorProfile} /> */}
           <EventDetailChart post={post} myAgree={myAgree} myDisagree={myDisagree}/>
-          <ProbabilityChart />
+          <ProbabilityChart post={post}/>
           <div className="pt-4 flex flex-col gap-4">
             {comments.map(comment => (
               <div key={comment.id}>

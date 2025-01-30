@@ -113,7 +113,7 @@ export function EventDetailChart({
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          事件描述
+          真相只有一个，在你我的选择中
         </div>
       </CardFooter>
     </Card>

@@ -17,24 +17,41 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { Post } from "@prisma/client";
 
 const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
+  { day: "01-01", percentage: 50 },
+  { day: "01-02", percentage: 45 },
+  { day: "01-03", percentage: 38 },
+  { day: "01-04", percentage: 17 },
+  { day: "01-05", percentage: 26 },
+  { day: "01-06", percentage: 52 },
+  { day: "01-07", percentage: 55 },
+  { day: "01-08", percentage: 72 },
+  { day: "01-09", percentage: 82 },
+  { day: "01-10", percentage: 72 },
+  { day: "01-11", percentage: 66 },
+  { day: "01-12", percentage: 88 },
+  { day: "01-13", percentage: 81 },
+  { day: "01-14", percentage: 89 },
+  { day: "01-15", percentage: 84 },
+  { day: "01-16", percentage: 90 },
+  { day: "01-17", percentage: 85 },
+  { day: "01-18", percentage: 83 },
 ];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  percentage: {
+    label: "percentage",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
-export default function ProbabilityChart() {
+export default function ProbabilityChart({
+  post,
+}: {
+  post: Post;
+}) {
   return (
     <Card>
       {/* <CardHeader>
@@ -49,16 +66,16 @@ export default function ProbabilityChart() {
             accessibilityLayer
             data={chartData}
             margin={{
-              left: 12,
-              right: 12,
+              left: 1,
+              right: 1,
             }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="day"
               tickLine={false}
               axisLine={false}
-              tickMargin={8}
+              tickMargin={1}
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
@@ -66,11 +83,11 @@ export default function ProbabilityChart() {
               content={<ChartTooltipContent indicator="line" />}
             />
             <Area
-              dataKey="desktop"
+              dataKey="percentage"
               type="natural"
-              fill="var(--color-desktop)"
+              fill="var(--color-percentage)"
               fillOpacity={0.4}
-              stroke="var(--color-desktop)"
+              stroke="var(--color-percentage)"
             />
           </AreaChart>
         </ChartContainer>
