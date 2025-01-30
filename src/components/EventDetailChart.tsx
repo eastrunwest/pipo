@@ -40,14 +40,14 @@ export function EventDetailChart({
   myAgree: Agree | null;
   myDisagree: Disagree | null;
 }) {
-  const chartData = [{ month: "january", agree: post.agreeCount, disagree: post.disagreeCount }]
-  const totalVoters = chartData[0].agree + chartData[0].disagree
+  const chartData = [{agree: post.agreeCount, disagree: post.disagreeCount }];
+  const totalVoters = post.agreeCount + post.disagreeCount;
 
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>事件标题</CardTitle>
-        <CardDescription>开始和截止时间</CardDescription>
+        <CardTitle>{post.title}</CardTitle>
+        <CardDescription>{post.description}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center pb-0">
         <ChartContainer

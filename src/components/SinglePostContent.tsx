@@ -39,12 +39,11 @@ export default function SinglePostContent({
             src={post.image} alt={post.description} />
         </div>
         <div>
-          <EventDetail
+          {/* <EventDetail
             createdAt={post.createdAt} title={post.title  || ""}
-            description={post.description} authorProfile={authorProfile} />
-          <ProbabilityChart />
+            description={post.description} authorProfile={authorProfile} /> */}
           <EventDetailChart post={post} myAgree={myAgree} myDisagree={myDisagree}/>
-          
+          <ProbabilityChart />
           <div className="pt-4 flex flex-col gap-4">
             {comments.map(comment => (
               <div key={comment.id}>
