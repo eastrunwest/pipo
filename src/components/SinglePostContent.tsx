@@ -4,13 +4,12 @@ import Comment from "@/components/Comment";
 import LikesInfo from "@/components/LikesInfo";
 import Preloader from "@/components/Preloader";
 import SessionCommentForm from "@/components/SessionCommentForm";
-import { Post, Profile, Comment as CommentModel, Like, Bookmark } from "@prisma/client";
+import { Post, Profile, Comment as CommentModel, Like, Bookmark, Agree, Disagree } from "@prisma/client";
 import { BookmarkIcon } from "lucide-react";
 import EventDetail from "./EventDetail";
 import ProbabilityChart from "./ProbabilityChart";
 import EventDetailChart from './EventDetailChart';
-import Agree from './Agree';
-import Disagree from './Disagree';
+import AgreeDisagreeBar from './AgreeDisagreeBar';
 
 export default function SinglePostContent({
   post,
@@ -28,8 +27,8 @@ export default function SinglePostContent({
   commentsAuthors: Profile[];
   myLike: Like | null;
   myBookmark: Bookmark | null;
-  myAgree: Like | null;
-  myDisagree: Like | null;
+  myAgree: Agree | null;
+  myDisagree: Disagree | null;
 }) {
   return (
     <div className="w-full h-full">
@@ -45,11 +44,7 @@ export default function SinglePostContent({
             description={post.description} authorProfile={authorProfile} />
           <ProbabilityChart />
           <EventDetailChart />
-          //todo：添加Agree和Disagree组件
-          <div className='flex items-center gap-2'>
-            <Agree post={post} sessionAgree={myAgree}/>
-            <Disagree post={post} sessionDisagree={myDisagree}/>
-          </div>
+          <AgreeDisagreeBar post={post} myAgree={myAgree} myDisagree={myDisagree} />
           <div className="pt-4 flex flex-col gap-4">
             {comments.map(comment => (
               <div key={comment.id}>

@@ -182,7 +182,7 @@ async function updateEventAgreesCount(postId: string) {//get all agrees for a po
   await prisma.post.update({
     where:{id:postId},
     data:{
-      likesCount: await prisma.agree.count({where:{postId}}),
+      agreeCount: await prisma.agree.count({where:{postId}}),
     },
   });
 }
@@ -207,7 +207,7 @@ async function updateEventDisagreesCount(postId: string) {//get all disagrees fo
   await prisma.post.update({
     where:{id:postId},
     data:{
-      likesCount: await prisma.disagree.count({where:{postId}}),
+      disagreeCount: await prisma.disagree.count({where:{postId}}),
     },
   });
 }
@@ -236,16 +236,16 @@ export async function agreeEvent(data: FormData) {
       postId,
     },
   });
-  await updatePostLikesCount(postId);
+  await updateEventAgreesCount(postId);
 }
 
 export async function disagreeEvent(data: FormData) {
   const postId = data.get('postId') as string;
-  await prisma.disagree.deleteMany({
-    where: {
-      postId,
+  await prisma.disagree.create({
+    data: {
       author: await getSessionEmailOrThrow(),
+      postId,
     },
   });
-  await updatePostLikesCount(postId);
+  await updateEventDisagreesCount(postId);
 }

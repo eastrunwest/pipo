@@ -30,7 +30,7 @@ export default function Agree({
       <button
         type="submit"
         className="">
-        <HeartIcon className={agreeByMe ? 'text-red-500 fill-red-500' : 'dark:text-white'}/>
+          <HeartIcon className={agreeByMe ? 'text-red-500 fill-red-500' : 'dark:text-white'}/>
       </button>
       {showText && (
         <p>{post.agreeCount} 赞同 </p>
