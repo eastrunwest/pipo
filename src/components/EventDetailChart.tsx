@@ -17,32 +17,42 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [{ month: "january", desktop: 1260, mobile: 570 }]
+import { Post, Agree, Disagree } from "@prisma/client"
+import AgreeDisagreeBar from "./AgreeDisagreeBar"
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
+  agree: {
+    label: "赞同",
+    color: "red",
   },
-  mobile: {
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
+  disagree: {
+    label: "反对",
+    color: "blue",
   },
 } satisfies ChartConfig
 
-export function EventDetailChart() {
-  const totalVisitors = chartData[0].desktop + chartData[0].mobile
+export function EventDetailChart({
+  post,
+  myAgree,
+  myDisagree,
+}: {
+  post: Post;
+  myAgree: Agree | null;
+  myDisagree: Disagree | null;
+}) {
+  const chartData = [{ month: "january", agree: post.agreeCount, disagree: post.disagreeCount }]
+  const totalVoters = chartData[0].agree + chartData[0].disagree
 
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Radial Chart - Stacked</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>事件标题</CardTitle>
+        <CardDescription>开始和截止时间</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-1 items-center pb-0">
+      <CardContent className="flex flex-col items-center pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square w-full max-w-[250px]"
+          className="mx-auto aspect-square w-full max-w-[250px] mb-0"
         >
           <RadialBarChart
             data={chartData}
@@ -65,14 +75,14 @@ export function EventDetailChart() {
                           y={(viewBox.cy || 0) - 16}
                           className="fill-foreground text-2xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalVoters.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 4}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          投票人数
                         </tspan>
                       </text>
                     )
@@ -81,28 +91,29 @@ export function EventDetailChart() {
               />
             </PolarRadiusAxis>
             <RadialBar
-              dataKey="desktop"
+              dataKey="disagree"
+              fill="var(--color-disagree)"
               stackId="a"
               cornerRadius={5}
-              fill="var(--color-desktop)"
               className="stroke-transparent stroke-2"
             />
             <RadialBar
-              dataKey="mobile"
-              fill="var(--color-mobile)"
+              dataKey="agree"
               stackId="a"
               cornerRadius={5}
+              fill="var(--color-agree)"
               className="stroke-transparent stroke-2"
             />
           </RadialBarChart>
         </ChartContainer>
+        <AgreeDisagreeBar post={post} myAgree={myAgree} myDisagree={myDisagree}/> 
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
+      <CardFooter className="flex-col gap-2 text-sm pt-2">
         <div className="flex items-center gap-2 font-medium leading-none">
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          事件描述
         </div>
       </CardFooter>
     </Card>
