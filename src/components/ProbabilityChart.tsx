@@ -50,10 +50,10 @@ export default function ProbabilityChart({
 
   return (
     <Card>
-      <CardHeader>
+      {/* <CardHeader>
         <CardTitle>{post.title}</CardTitle>
         <CardDescription>{post.description}</CardDescription>
-      </CardHeader>
+      </CardHeader> */}
       <CardContent>
         <ChartContainer config={chartConfig}>
           <AreaChart
