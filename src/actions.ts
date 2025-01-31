@@ -216,7 +216,7 @@ async function getDisagreesCountUntilDate(postId: string, date: Date) {//get all
   const endDate = new Date(date);
   endDate.setHours(23, 59, 59, 999);
 
-  const agreeCount = await prisma.agree.count({
+  const disagreeCount = await prisma.disagree.count({
     where: {
       postId,
       createdAt: {
@@ -225,7 +225,7 @@ async function getDisagreesCountUntilDate(postId: string, date: Date) {//get all
     },
   });
 
-  return agreeCount;
+  return disagreeCount;
 }
 
 export async function agreeEvent(data: FormData) {
@@ -248,4 +248,29 @@ export async function disagreeEvent(data: FormData) {
     },
   });
   await updateEventDisagreesCount(postId);
+}
+
+export async function getAgreeDisagreeData(postId: string, startDate: Date, endDate: Date) {
+  const data = [];
+  const currentDate = new Date(startDate);
+  let cumulativeAgreeCount = 0;
+  let cumulativeDisagreeCount = 0;
+
+  while (currentDate <= endDate) {
+    const agreeCount = await getAgreesCountUntilDate(postId, currentDate);
+    const disagreeCount = await getDisagreesCountUntilDate(postId, currentDate);
+    cumulativeAgreeCount += agreeCount;
+    cumulativeDisagreeCount += disagreeCount;
+    const totalCount = cumulativeAgreeCount + cumulativeDisagreeCount;
+    const percentage = totalCount ? ((cumulativeAgreeCount / totalCount) * 100).toFixed(1) : "50.0";
+
+    data.push({
+      day: currentDate.toISOString().slice(0, 10), 
+      percentage: parseFloat(percentage),
+    });
+
+    currentDate.setDate(currentDate.getDate() + 1); 
+  }
+
+  return data;
 }
