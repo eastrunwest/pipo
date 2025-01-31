@@ -259,8 +259,8 @@ export async function getAgreeDisagreeData(postId: string, startDate: Date, endD
   while (currentDate <= endDate) {
     const agreeCount = await getAgreesCountUntilDate(postId, currentDate);
     const disagreeCount = await getDisagreesCountUntilDate(postId, currentDate);
-    cumulativeAgreeCount += agreeCount;
-    cumulativeDisagreeCount += disagreeCount;
+    cumulativeAgreeCount = agreeCount;
+    cumulativeDisagreeCount = disagreeCount; 
     const totalCount = cumulativeAgreeCount + cumulativeDisagreeCount;
     const percentage = totalCount ? ((cumulativeAgreeCount / totalCount) * 100).toFixed(1) : "50.0";
 

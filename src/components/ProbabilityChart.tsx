@@ -37,9 +37,11 @@ export default function ProbabilityChart({
 
   useEffect(() => {
     async function fetchData() {
+      console.log('Post data:', post);
       const startDate = new Date(post.createdAt);
       const endDate = new Date();
       const data = await getAgreeDisagreeData(post.id, startDate, endDate);
+      console.log('Chart data:', data); 
       setChartData(data.length > 0 ? data : [{ day: endDate.toISOString().slice(0, 10), percentage: 50.0 }]); // 初始化为 50.0%
     }
 
