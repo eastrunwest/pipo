@@ -272,5 +272,15 @@ export async function getAgreeDisagreeData(postId: string, startDate: Date, endD
     currentDate.setDate(currentDate.getDate() + 1); 
   }
 
+  const todayAgreeCount = await getAgreesCountUntilDate(postId, endDate);
+  const todayDisagreeCount = await getDisagreesCountUntilDate(postId, endDate);
+  const todayTotalCount = todayAgreeCount + todayDisagreeCount;
+  const todayPercentage = todayTotalCount ? ((todayAgreeCount / todayTotalCount) * 100).toFixed(1) : "50.0";
+
+  data.push({
+    day: endDate.toISOString().slice(0, 10),
+    percentage: parseFloat(todayPercentage),
+  });
+
   return data;
 }
