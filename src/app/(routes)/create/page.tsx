@@ -42,7 +42,7 @@ export default function CreatePage() {
       <div className="w-full max-w-4xl p-4">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 mb-2">
-            Create Your Story
+            Create Your Event
           </h1>
           <p className="text-blue-200/80">Share your vision with the world</p>
         </div>

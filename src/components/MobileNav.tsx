@@ -24,9 +24,6 @@ export default function MobileNav() {
           <Link href="/" className={getTabClass('/')}>
             <HomeIcon onClick={() => handleTabClick('/')} />
           </Link>
-          {/* <Link href="/search" className={getTabClass('/search')}>
-            <SearchIcon onClick={() => handleTabClick('/search')} />
-          </Link> */}
         </div>
         <div className="size-14 relative -top-4 justify-center w-[140px]">
           <div className="absolute bg-blue-500 bg-clip-text border-white dark:border-gray-700 border-t-transparent dark:border-t-transparent border-l-transparent dark:border-l-transparent border-[50px] rounded-full rotate-45">
@@ -38,9 +35,6 @@ export default function MobileNav() {
           </div>
         </div>
         <div className="pr-2 w-full bg-white dark:bg-gray-700 rounded-t-xl relative z-10 *:size-12 *:flex *:items-center *:justify-center justify-around">
-          {/* <Link href="/browse" className={getTabClass('/browse')}>
-            <LayoutGridIcon onClick={() => handleTabClick('/browse')} />
-          </Link> */}
           <Link href="/profile" className={getTabClass('/profile')}>
             <UserIcon onClick={() => handleTabClick('/profile')} />
           </Link>
