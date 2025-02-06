@@ -20,9 +20,9 @@ export default function Disagree({
   return (
     <form
       action={async (data:FormData) => {
-        if (!disagreeByMe) {
+        // if (!disagreeByMe) {//close for test
             await disagreeEvent(data);
-        }
+        // }
         router.refresh();
       }}
       className="flex items-center gap-2">
@@ -30,7 +30,7 @@ export default function Disagree({
       <button
         type="submit"
         className="">
-        <HeartIcon className={disagreeByMe ? 'text-blue-500 fill-blue-500' : 'dark:text-white'}/>
+        <HeartIcon className={disagreeByMe ? 'text-red-500 fill-red-500' : 'dark:text-white'}/>
       </button>
       {showText && (
         <p>{post.disagreeCount} 反对 </p>

@@ -1,13 +1,17 @@
 "use client";
 
 import { useState } from 'react';
-import { CameraIcon, HomeIcon, LayoutGridIcon, Scale, ScaleIcon, SearchIcon, SendIcon, UserIcon } from 'lucide-react';
+import { CameraIcon, HomeIcon, ScaleIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function MobileNav() {
   const pathname = usePathname();
-  const [activeTab, setActiveTab] = useState(pathname);
+  const [activeTab, setActiveTab] = useState(pathname || '/');
+
+  if (!pathname || pathname.startsWith('/posts/')) {
+    return null;
+  }
 
   const handleTabClick = (path: string) => {
     setActiveTab(path);

@@ -18,7 +18,7 @@ export default async function Home({
     take: 100,
   });
   return (
-    <div>
+    <div className="w-full">
       <div className="w-full">
         <div className="max-w-md mx-auto fixed top-0 left-0 right-0 z-10 p-4">
           <SearchForm />
@@ -28,7 +28,6 @@ export default async function Home({
             <SearchResults query={query} />
           </Suspense>
         )}
-
       </div>
       <div className="mt-12">
         <PostsGrid posts={posts} />

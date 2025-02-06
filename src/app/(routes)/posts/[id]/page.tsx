@@ -1,12 +1,20 @@
-import {getSinglePostData} from "@/actions";
+import { getSinglePostData } from "@/actions";
 import SinglePostContent from "@/components/SinglePostContent";
 
-export default async function SinglePostPage({params}:{params:{id:string}}) {
+export default async function SinglePostPage({ params }: { params: { id: string } }) {
   const {
-    post, authorProfile, comments,
-    commentsAuthors, myLike, myBookmark,myAgree,myDisagree,
+    post,
+    authorProfile,
+    comments,
+    commentsAuthors,
+    myLike,
+    myBookmark,
+    myAgree,
+    myDisagree,
   } = await getSinglePostData(params.id);
+
   return (
+    <div className="min-h-screen w-full p-4">
       <SinglePostContent
         post={post}
         authorProfile={authorProfile}
@@ -17,5 +25,6 @@ export default async function SinglePostPage({params}:{params:{id:string}}) {
         myAgree={myAgree}
         myDisagree={myDisagree}
       />
+    </div>
   );
 }
