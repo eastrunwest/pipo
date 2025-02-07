@@ -76,3 +76,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+.glow-text {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
+               0 0 16px rgba(255, 0, 0, 0.6),
+               0 0 32px rgba(255, 0, 0, 0.4);
+  animation: glow-pulse 2s infinite alternate;
+}
+
+@keyframes glow-pulse {
+  0% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
+                      0 0 16px rgba(255, 0, 0, 0.6),
+                      0 0 32px rgba(255, 0, 0, 0.4); }
+  100% { text-shadow: 0 0 12px rgba(255, 255, 255, 1),
+                        0 0 24px rgba(255, 0, 0, 0.8),
+                        0 0 48px rgba(255, 0, 0, 0.6); }
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
