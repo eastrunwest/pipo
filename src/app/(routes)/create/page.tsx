@@ -56,9 +56,9 @@ export default function CreatePage() {
             </CardHeader>
             <CardContent>
               <div className="relative group">
-                <div className={`min-h-[300px] rounded-lg border-2 border-dashed border-gray-700 transition-all duration-300 ${!imageUrl ? 'hover:border-blue-500' : ''} relative overflow-hidden`}>
+                <div className={`min-h-[200px] rounded-lg border-2 border-dashed border-gray-700 transition-all duration-300 ${!imageUrl ? 'hover:border-blue-500' : ''} relative overflow-hidden`}>
                   {imageUrl ? (
-                    <div className="relative h-[300px] w-full">
+                    <div className="relative h-[200px] w-full">
                       <img src={imageUrl} className="absolute inset-0 w-full h-full object-cover rounded-lg" alt="" />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <Button
@@ -99,7 +99,7 @@ export default function CreatePage() {
           </Card>
 
           {/* Content Section */}
-          <Card className="bg-gray-900/50 border border-gray-800 backdrop-blur-sm">
+          <Card className="bg-gray-900/50 border border-gray-800 backdrop-blur-sm mb-24">
             <CardHeader>
               <CardTitle className="text-xl text-blue-300">Content Details</CardTitle>
               <CardDescription className="text-gray-400">Tell your event details</CardDescription>
