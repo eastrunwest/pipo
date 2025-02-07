@@ -12,7 +12,7 @@ export default function SearchForm() {
         router.push("/search?query=" + data.get("query"));
         router.refresh();
       }}
-      className="glassmorphism p-2 w-full max-w-md flex items-center justify-between space-x-2 transition-all duration-300 hover:shadow-lg"
+      className="mb-2 glassmorphism p-2 w-full max-w-md flex items-center justify-between space-x-2 transition-all duration-300 hover:shadow-lg"
     >
       <TextField.Root
         name="query"

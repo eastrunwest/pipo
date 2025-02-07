@@ -31,10 +31,7 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 w-full max-w-4xl bg-black/50 backdrop-blur-md p-6 rounded-lg shadow-lg border border-gray-700 mb-24">
-        <h1 className="text-center text-4xl font-bold text-white drop-shadow-lg mb-6">
-          🔥 探索未来世界
-        </h1>
-        <SearchForm />
+        <SearchForm/>
         
         {loading ? (
           <p className="text-gray-400 text-center">⏳ 正在加载...</p>
