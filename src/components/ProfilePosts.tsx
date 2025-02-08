@@ -1,9 +1,25 @@
-import PostsGrid from "@/components/PostsGrid";
-import {prisma} from "@/db";
+'use client';
 
-export default async function ProfilePosts({email}:{email:string}) {
-  const posts = await prisma.post.findMany({where:{author:email}});
+import PostsGrid from "@/components/PostsGrid";
+import React, { useEffect, useState } from "react";
+import { AnimatedPostsGrid } from "./AnimatedPostsGrid";
+
+export default function ProfilePosts({ email }: { email: string }) {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch(`/api/posts/client?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => setPosts(data))
+      .catch((err) => console.error("Error fetching posts:", err));
+  }, [email]);
+
   return (
-    <PostsGrid posts={posts} />
+    <AnimatedPostsGrid>
+      <div className="w-full pb-16">
+        <PostsGrid posts={posts} />
+      </div>
+    </AnimatedPostsGrid>
   );
+  
 }
