@@ -22,7 +22,7 @@ export default function MobileNav() {
   };
 
   return (
-    <div className="block md:hidden fixed bottom-0 left-0 right-0">
+    <div className="block md:hidden fixed bottom-0 left-0 right-0 z-50">
       <div className="flex *:flex *:items-center">
         <div className="pl-2 bg-white dark:bg-gray-700 rounded-t-xl w-full relative z-10 *:size-12 *:flex *:items-center *:justify-center justify-around">
           <Link href="/" className={getTabClass('/')}>
