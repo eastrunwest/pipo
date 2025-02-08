@@ -19,7 +19,7 @@ export default async function BookmarkedPage() {
     where: {id: {in: bookmarks.map(b => b.postId)}},
   })
   return (
-    <div>
+    <div className="w-full">
       <ProfilePageInfo
         profile={profile}
         isOurProfile={true}
@@ -27,7 +27,7 @@ export default async function BookmarkedPage() {
       <ProfileNav
         username={profile.username || ''}
         isOurProfile={true} />
-      <div className="mt-4">
+      <div className="mt-4 mb-20 mr-4 ml-4">
         <PostsGrid posts={posts} />
       </div>
     </div>

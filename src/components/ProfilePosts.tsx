@@ -16,7 +16,7 @@ export default function ProfilePosts({ email }: { email: string }) {
 
   return (
     <AnimatedPostsGrid>
-      <div className="w-full pb-16">
+      <div className="mr-4 ml-4">
         <PostsGrid posts={posts} />
       </div>
     </AnimatedPostsGrid>
