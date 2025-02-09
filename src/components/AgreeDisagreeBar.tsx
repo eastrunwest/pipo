@@ -1,7 +1,7 @@
 import React from 'react';
 import AgreeComponent from './Agree';
 import DisagreeComponent from './Disagree';
-import { Post, Agree, Disagree} from "@prisma/client";
+import { Post, Agree, Disagree } from "@prisma/client";
 
 export default function AgreeDisagreeBar({
   post,
@@ -12,23 +12,28 @@ export default function AgreeDisagreeBar({
   myAgree: Agree | null;
   myDisagree: Disagree | null;
 }) {
-  const totalVotes = post.agreeCount + post.disagreeCount;
-  const agreePercentage = totalVotes ? (post.agreeCount / totalVotes) * 100 : 50;
-  const disagreePercentage = totalVotes ? (post.disagreeCount / totalVotes) * 100 : 50;
-  console.log('post.agreeCount :', post.agreeCount );
-  console.log('post.disagreeCount :', post.disagreeCount );
-  console.log('disagreePercentage:', disagreePercentage );
+  const agreeCount = post.agreeCount || 0;
+  const disagreeCount = post.disagreeCount || 0;
+  const total = agreeCount + disagreeCount;
+
+//   const agreePercentage = total > 0 ? (agreeCount / total) * 100 : 50;
+//   const disagreePercentage = total > 0 ? (disagreeCount / total) * 100 : 50;
+  const agreePercentage = 50;
+  const disagreePercentage = 50;
+
   return (
-    <div className="w-full flex justify-center">
-      <div className="w-11/12 flex items-center justify-between bg-gradient-to-r from-red-500 to-blue-500 rounded-lg overflow-hidden">
-        <div className="flex-1 flex items-center justify-center bg-red-500" style={{ width: `${agreePercentage}%` }}>
+    <div className="w-full flex justify-center px-2">
+      <div className="w-full max-w-screen-lg flex relative rounded-lg overflow-hidden">
+        <div className="flex items-center justify-center bg-red-500 transition-all duration-300" style={{ width: `${agreePercentage}%` }}>
           <AgreeComponent post={post} sessionAgree={myAgree} showText={false} />
-          <span className="text-white ml-2">{post.agreeCount} 赞同 ({agreePercentage.toFixed(1)}%)</span>
         </div>
-        <div className="px-4 text-white">VS</div>
-        <div className="flex-1 flex items-center justify-center bg-blue-500" style={{ width: `${disagreePercentage}%` }}>
+
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <span className="text-white font-bold text-lg select-none">VS</span>
+        </div>
+
+        <div className="flex items-center justify-center bg-blue-500 transition-all duration-300" style={{ width: `${disagreePercentage}%` }}>
           <DisagreeComponent post={post} sessionDisagree={myDisagree} showText={false} />
-          <span className="text-white ml-2">{post.disagreeCount} 反对 ({disagreePercentage.toFixed(1)}%)</span>
         </div>
       </div>
     </div>
