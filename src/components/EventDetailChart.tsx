@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/chart"
 import { Post, Agree, Disagree } from "@prisma/client"
 import AgreeDisagreeBar from "./AgreeDisagreeBar"
+import ProbabilityChart from "./ProbabilityChart"
 
 const chartConfig = {
   agree: {
@@ -107,11 +108,9 @@ export function EventDetailChart({
           </RadialBarChart>
         </ChartContainer>
         <AgreeDisagreeBar post={post} myAgree={myAgree} myDisagree={myDisagree}/> 
+        <ProbabilityChart post={post}/>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm pt-2">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
         <div className="leading-none text-muted-foreground">
           真相只有一个，在你我的选择中
         </div>

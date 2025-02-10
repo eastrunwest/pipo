@@ -9,7 +9,6 @@ import { BookmarkIcon } from "lucide-react";
 import EventDetail from "./EventDetail";
 import ProbabilityChart from "./ProbabilityChart";
 import EventDetailChart from './EventDetailChart';
-import AgreeDisagreeBar from './AgreeDisagreeBar';
 
 export default function SinglePostContent({
   post,
@@ -42,7 +41,7 @@ export default function SinglePostContent({
       </div>
       <div className="flex flex-col">
         <EventDetailChart post={post} myAgree={myAgree} myDisagree={myDisagree}/>
-        <ProbabilityChart post={post}/>
+        
         <div className="flex-grow">
           <div className="pt-4 flex flex-col gap-4">
             {comments.map(comment => (
