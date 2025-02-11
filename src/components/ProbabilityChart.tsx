@@ -28,10 +28,10 @@ export default function ProbabilityChart({
             <AreaChart
               data={chartData}
               margin={{
-                top: 20,
-                right: 20,
+                top: 10,
+                right: 2,
                 bottom: 20,
-                left: 20,
+                left: 2,
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
