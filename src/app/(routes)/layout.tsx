@@ -32,12 +32,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-black dark:text-red-500`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0a0a1b]`}>
         <NextAuthProvider>
           <Theme>
             <div className="flex min-h-screen">
               <DesktopNav />
-              <main className="flex-1">
+              <main className="flex-1 overflow-x-hidden">
                 {children}
               </main>
             </div>
