@@ -1,14 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; 
 import { motion } from "framer-motion";
+import { SearchIcon } from "lucide-react"; 
 import PostsGrid from "@/components/PostsGrid";
-import SearchForm from "@/components/SearchForm";
 import MobileNav from "@/components/MobileNav";
 
 export default function Home() {
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     fetch("/api/posts")
@@ -17,6 +19,10 @@ export default function Home() {
       .catch(() => setPosts([]))
       .finally(() => setLoading(false));
   }, []);
+
+  const goToSearchPage = () => {
+    router.push("/search"); 
+  };
 
   return (
     <motion.div
@@ -27,49 +33,35 @@ export default function Home() {
     >
       {/* Dynamic background effects */}
       <div className="fixed inset-0 overflow-hidden">
-        {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a1b] via-[#16213e] to-[#0a0a1b]" />
-        
-        {/* Animated orbs */}
         <motion.div
-          animate={{
-            opacity: [0.3, 0.5, 0.3],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.2, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.1),transparent_70%)]"
         />
         <motion.div
-          animate={{
-            opacity: [0.2, 0.4, 0.2],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
+          animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.3, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           className="absolute bottom-1/4 right-1/4 w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,rgba(139,92,246,0.1),transparent_70%)]"
         />
-        
-        {/* Overlay gradients */}
         <div className="absolute inset-0 backdrop-blur-[100px]" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 flex flex-col items-center w-full max-w-[2000px] mx-auto pt-8">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full max-w-4xl mb-12"
+          className="w-full max-w-4xl mb-12 flex justify-end"
         >
-          <SearchForm />
+          <button
+            onClick={goToSearchPage}
+            className="p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition flex items-center space-x-2"
+            aria-label="Search"
+          >
+            <SearchIcon className="w-6 h-6" />
+            <span>搜索</span>
+          </button>
         </motion.div>
 
         <motion.div
