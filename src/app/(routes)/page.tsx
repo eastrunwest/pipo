@@ -7,24 +7,42 @@ import { SearchIcon } from "lucide-react";
 import PostsGrid from "@/components/PostsGrid";
 import MobileNav from "@/components/MobileNav";
 
-// Animation variants
-const pageTransition = {
-  initial: { opacity: 0, scale: 0.98 },
-  animate: { opacity: 1, scale: 1 },
-  exit: { opacity: 0, scale: 1.02 }
-};
-
+// Enhanced animation variants for background elements
 const backgroundVariants = {
   animate: {
     background: [
-      "radial-gradient(circle at 50% 50%, rgba(56,189,248,0.15), transparent 70%)",
-      "radial-gradient(circle at 60% 60%, rgba(139,92,246,0.15), transparent 70%)",
-      "radial-gradient(circle at 40% 40%, rgba(56,189,248,0.15), transparent 70%)"
+      "radial-gradient(circle at 0% 0%, rgba(56,189,248,0.15), transparent 50%)",
+      "radial-gradient(circle at 100% 100%, rgba(139,92,246,0.15), transparent 50%)",
+      "radial-gradient(circle at 0% 100%, rgba(56,189,248,0.15), transparent 50%)",
+      "radial-gradient(circle at 100% 0%, rgba(139,92,246,0.15), transparent 50%)"
     ],
     transition: {
-      duration: 15,
+      duration: 20,
       repeat: Infinity,
       ease: "linear"
+    }
+  }
+};
+
+const orbitingLightVariants = {
+  animate: {
+    rotate: 360,
+    transition: {
+      duration: 30,
+      repeat: Infinity,
+      ease: "linear"
+    }
+  }
+};
+
+const pulsingVariants = {
+  animate: {
+    scale: [1, 1.2, 1],
+    opacity: [0.3, 0.5, 0.3],
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      ease: "easeInOut"
     }
   }
 };
@@ -33,6 +51,7 @@ export default function Home() {
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     fetch("/api/posts")
@@ -40,59 +59,120 @@ export default function Home() {
       .then((data) => setPosts(data))
       .catch(() => setPosts([]))
       .finally(() => setLoading(false));
-  }, []);
 
-  const goToSearchPage = () => {
-    router.push("/search");
-  };
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: (e.clientY / window.innerHeight) * 2 - 1
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        {...pageTransition}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.8 }}
         className="relative min-h-screen"
       >
-        {/* Dynamic background layer */}
+        {/* Enhanced background layers */}
         <div className="fixed inset-0 overflow-hidden">
-          {/* Base gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a1b] via-[#16213e] to-[#0a0a1b]" />
-          
-          {/* Animated orbs */}
+          {/* Base gradient background */}
+          <div 
+            className="absolute inset-0 bg-gradient-to-br from-[#0a0a1b] via-[#16213e] to-[#0a0a1b]"
+            style={{
+              backgroundSize: '400% 400%',
+              animation: 'gradientBG 15s ease infinite'
+            }}
+          />
+
+          {/* Dynamic gradient overlay */}
           <motion.div
             variants={backgroundVariants}
             animate="animate"
             className="absolute inset-0"
           />
-          
-          {/* Scanlines effect */}
+
+          {/* Animated orbital rings */}
+          <motion.div
+            variants={orbitingLightVariants}
+            animate="animate"
+            className="absolute inset-0"
+          >
+            <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2">
+              <div className="absolute inset-0 border border-blue-500/10 rounded-full" 
+                   style={{ transform: 'rotate(45deg)' }} />
+              <div className="absolute inset-0 border border-purple-500/10 rounded-full" 
+                   style={{ transform: 'rotate(-45deg)' }} />
+            </div>
+          </motion.div>
+
+          {/* Animated light sources */}
+          <motion.div
+            variants={pulsingVariants}
+            animate="animate"
+            className="absolute top-1/4 left-1/4 w-[600px] h-[600px]"
+          >
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.1),transparent_70%)]" />
+          </motion.div>
+
+          <motion.div
+            variants={pulsingVariants}
+            animate="animate"
+            className="absolute bottom-1/4 right-1/4 w-[800px] h-[800px]"
+          >
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(139,92,246,0.1),transparent_70%)]" />
+          </motion.div>
+
+          {/* Mouse-following spotlight */}
+          <motion.div
+            animate={{
+              x: mousePosition.x * 100,
+              y: mousePosition.y * 100,
+            }}
+            className="absolute top-1/2 left-1/2 w-[400px] h-[400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          >
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.03),transparent_70%)]" />
+          </motion.div>
+
+          {/* Scanlines and noise effects */}
           <div className="absolute inset-0 bg-scanlines opacity-5" />
-          
+          <div className="absolute inset-0 bg-noise mix-blend-overlay opacity-[0.02]" />
+
           {/* Grid overlay */}
           <div 
             className="absolute inset-0"
             style={{
               backgroundImage: `
-                linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)
               `,
               backgroundSize: '50px 50px'
             }}
           />
+
+          {/* Blur overlay */}
+          <div className="absolute inset-0 backdrop-blur-[100px]" />
         </div>
 
-        {/* Search button with hover effects */}
+        {/* Enhanced search button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={goToSearchPage}
+          onClick={() => router.push("/search")}
           className="fixed top-4 right-4 p-4 bg-transparent backdrop-blur-md border border-white/10 rounded-full shadow-lg hover:shadow-blue-500/20 transition-all duration-300 z-50 group"
         >
           <SearchIcon className="w-6 h-6 text-white/80 group-hover:text-white" />
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur opacity-0 group-hover:opacity-75 transition-opacity duration-300" />
         </motion.button>
 
-        {/* Main content container */}
+        {/* Main content */}
         <div className="relative z-10 container mx-auto px-4 pt-8">
           {loading ? (
             <LoadingSpinner />
@@ -108,7 +188,6 @@ export default function Home() {
           )}
         </div>
 
-        {/* Mobile navigation */}
         <div className="fixed bottom-0 left-0 right-0 z-20">
           <MobileNav />
         </div>
@@ -117,7 +196,7 @@ export default function Home() {
   );
 }
 
-// Loading spinner component
+// Enhanced loading spinner
 function LoadingSpinner() {
   return (
     <div className="flex justify-center items-center h-40">
