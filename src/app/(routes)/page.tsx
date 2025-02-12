@@ -46,24 +46,15 @@ export default function Home() {
         />
         <div className="absolute inset-0 backdrop-blur-[100px]" />
       </div>
+      <button
+        onClick={goToSearchPage}
+        className="fixed top-2 right-1 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition flex items-center space-x-2 z-50"
+        aria-label="Search"
+      >
+        <SearchIcon className="w-6 h-6" />
+      </button>
 
       <div className="relative z-10 flex flex-col items-center w-full max-w-[2000px] mx-auto pt-8">
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full max-w-4xl mb-12 flex justify-end"
-        >
-          <button
-            onClick={goToSearchPage}
-            className="p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition flex items-center space-x-2"
-            aria-label="Search"
-          >
-            <SearchIcon className="w-6 h-6" />
-            <span>搜索</span>
-          </button>
-        </motion.div>
-
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
