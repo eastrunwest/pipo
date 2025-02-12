@@ -160,16 +160,30 @@ export default function Home() {
           <div className="absolute inset-0 backdrop-blur-[100px]" />
         </div>
 
-        {/* Enhanced search button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => router.push("/search")}
-          className="fixed top-4 right-4 p-4 bg-transparent backdrop-blur-md border border-white/10 rounded-full shadow-lg hover:shadow-blue-500/20 transition-all duration-300 z-50 group"
+          className="fixed top-4 right-4 w-12 h-12 rounded-full z-50 group overflow-hidden flex items-center justify-center"
+          style={{
+            background: 'linear-gradient(to right, rgb(29, 78, 216), rgb(147, 51, 234))',
+            backgroundSize: '200% 100%',
+            animation: 'gradientMove 5s ease infinite'
+          }}
         >
-          <SearchIcon className="w-6 h-6 text-white/80 group-hover:text-white" />
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur opacity-0 group-hover:opacity-75 transition-opacity duration-300" />
+          <div className="relative flex items-center justify-center w-full h-full">
+            {/* Gradient icon */}
+            <SearchIcon className="w-5 h-5 text-white group-hover:text-blue-100 transition-colors duration-300" />
+            
+            {/* Button hover overlay */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10" />
+            
+            {/* Glow effect */}
+            <div className="absolute -inset-1 opacity-0 group-hover:opacity-75 transition-opacity duration-300 blur-sm"
+                 style={{
+                   background: 'linear-gradient(to right, rgba(29, 78, 216, 0.5), rgba(147, 51, 234, 0.5))'
+                 }} />
+          </div>
         </motion.button>
 
         {/* Main content */}
