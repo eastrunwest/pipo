@@ -18,32 +18,25 @@ export default function MobileNav() {
   };
 
   const getTabClass = (path: string) => {
-    return activeTab === path ? 'text-ig-red dark:text-ig-orange' : 'text-gray-700 dark:text-gray-300';
+    return activeTab === path ? 'text-pink-500' : 'text-gray-400';
   };
 
   return (
-    <div className="block md:hidden fixed bottom-0 left-0 right-0 z-50">
-      <div className="flex *:flex *:items-center">
-        <div className="pl-2 bg-white dark:bg-gray-700 rounded-t-xl w-full relative z-10 *:size-12 *:flex *:items-center *:justify-center justify-around">
-          <Link href="/" className={getTabClass('/')}>
-            <HomeIcon onClick={() => handleTabClick('/')} />
-          </Link>
-        </div>
-        <div className="size-14 relative -top-4 justify-center w-[140px]">
-          <div className="absolute bg-blue-500 bg-clip-text border-white dark:border-gray-700 border-t-transparent dark:border-t-transparent border-l-transparent dark:border-l-transparent border-[50px] rounded-full rotate-45">
-            <div className="border-4 size-15 border-transparent">
-              <Link href="/create" className="-rotate-45 bg-gradient-to-tr from-ig-orange to-ig-red to-70% size-12 flex items-center justify-center text-white rounded-full">
-                <ScaleIcon onClick={() => handleTabClick('/create')} />
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="pr-2 w-full bg-white dark:bg-gray-700 rounded-t-xl relative z-10 *:size-12 *:flex *:items-center *:justify-center justify-around">
-          <Link href="/profile" className={getTabClass('/profile')}>
-            <UserIcon onClick={() => handleTabClick('/profile')} />
-          </Link>
-        </div>
-      </div>
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[70%] bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 shadow-xl shadow-purple-700/50 rounded-full p-4 flex justify-around items-center backdrop-blur-md border border-white/20">
+      <Link href="/" onClick={() => handleTabClick('/')} className="flex flex-col items-center">
+        <HomeIcon className={`w-6 h-6 ${getTabClass('/')}`} />
+        <span className="text-xs mt-1 text-white">Home</span>
+      </Link>
+
+      <Link href="/create" onClick={() => handleTabClick('/create')} className="flex flex-col items-center mx-4">
+        <ScaleIcon className={`w-6 h-6 ${getTabClass('/create')}`} />
+        <span className="text-xs mt-1 text-white">Create</span>
+      </Link>
+
+      <Link href="/profile" onClick={() => handleTabClick('/profile')} className="flex flex-col items-center">
+        <UserIcon className={`w-6 h-6 ${getTabClass('/profile')}`} />
+        <span className="text-xs mt-1 text-white">Profile</span>
+      </Link>
     </div>
   );
 }
