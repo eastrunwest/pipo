@@ -1,13 +1,19 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
-import { CameraIcon, HomeIcon, ScaleIcon, UserIcon } from 'lucide-react';
+import { HomeIcon, ScaleIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { createPortal } from 'react-dom';
 
 export default function MobileNav() {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState(pathname || '/');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (pathname) {
@@ -16,7 +22,6 @@ export default function MobileNav() {
       setActiveTab('/');
     }
   }, [pathname]);
-  
 
   const getTabClass = (path: string) => {
     return activeTab === path ? 'text-pink-500' : 'text-gray-400';
@@ -26,8 +31,8 @@ export default function MobileNav() {
     return null;
   }
 
-  return (
-    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[70%] bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 shadow-xl shadow-purple-700/50 rounded-full p-4 flex justify-around items-center backdrop-blur-md border border-white/20">
+  const nav = (
+    <div className="fixed z-[1000] bottom-4 left-1/2 transform -translate-x-1/2 w-[70%] bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 shadow-xl shadow-purple-700/50 rounded-full p-4 flex justify-around items-center backdrop-blur-md border border-white/20">
       <Link href="/" className="flex flex-col items-center">
         <HomeIcon className={`w-6 h-6 ${getTabClass('/')}`} />
         <span className="text-xs mt-1 text-white">Home</span>
@@ -44,4 +49,9 @@ export default function MobileNav() {
       </Link>
     </div>
   );
+
+  if (mounted) {
+    return createPortal(nav, document.body);
+  }
+  return null;
 }
