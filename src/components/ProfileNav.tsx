@@ -1,37 +1,32 @@
 'use client';
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
+import React from "react";
 
 export default function ProfileNav({
-  isOurProfile=false,
+  isOurProfile = false,
   username,
-}:{
-  isOurProfile:boolean
-  username:string;
+}: {
+  isOurProfile: boolean;
+  username: string;
 }) {
-  const path = usePathname();
+  const path = usePathname() ?? '';
   const bookmarkedActive = path.includes('/bookmarked');
   const postsActive = !bookmarkedActive;
+
+  const linkClass = (active: boolean) =>
+    active
+      ? "text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-500"
+      : "text-xl font-bold text-gray-500 hover:text-indigo-400 transition-colors";
+
   return (
     <section className="mt-4">
-      <div className="flex justify-center gap-4 font-bold">
-        <Link
-          className={
-            postsActive
-              ? 'text-gray-800 dark:text-gray-300'
-              : "text-gray-400 dark:text-gray-600"
-        }
-          href={isOurProfile ? '/profile' : `/${username}`}>
+      <div className="flex justify-center gap-8">
+        <Link className={linkClass(postsActive)} href={isOurProfile ? '/profile' : `/${username}`}>
           Posts
         </Link>
         {isOurProfile && (
-          <Link
-            className={
-              bookmarkedActive
-                ? 'text-gray-800 dark:text-gray-300'
-                : "text-gray-400 dark:text-gray-600"
-          }
-            href={'/profile/bookmarked'}>
+          <Link className={linkClass(bookmarkedActive)} href={'/profile/bookmarked'}>
             Bookmarked
           </Link>
         )}

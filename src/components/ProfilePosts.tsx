@@ -1,11 +1,10 @@
 'use client';
-
+import React, { useEffect, useState } from 'react';
 import PostsGrid from "@/components/PostsGrid";
-import React, { useEffect, useState } from "react";
-import { AnimatedPostsGrid } from "./AnimatedPostsGrid";
+import { AnimatedPostsGrid } from './AnimatedPostsGrid';
 
 export default function ProfilePosts({ email }: { email: string }) {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any[]>([]);
 
   useEffect(() => {
     fetch(`/api/posts/client?email=${email}`)
@@ -16,10 +15,9 @@ export default function ProfilePosts({ email }: { email: string }) {
 
   return (
     <AnimatedPostsGrid>
-      <div className="mr-4 ml-4">
+      <div className="px-4">
         <PostsGrid posts={posts} />
       </div>
     </AnimatedPostsGrid>
   );
-  
 }

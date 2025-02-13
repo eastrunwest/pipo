@@ -1,36 +1,33 @@
 'use client';
-import React from 'react';
-import { motion } from 'framer-motion';
-import Preloader from "@/components/Preloader";
-import ProfileNav from "@/components/ProfileNav";
-import ProfilePageInfo from "@/components/ProfilePageInfo";
-import ProfilePosts from "@/components/ProfilePosts";
-import {Follower, Profile} from "@prisma/client";
-import {Suspense} from "react";
+import React, { Suspense } from 'react';
 import AnimatedProfileContent from './AnimatedProfileContent';
+import ProfilePageInfo from './ProfilePageInfo';
+import ProfileNav from './ProfileNav';
+import ProfilePosts from './ProfilePosts';
+import Preloader from "@/components/Preloader";
+import { Profile, Follower } from "@prisma/client";
+
+interface ProfilePageContentProps {
+  profile: Profile;
+  isOurProfile?: boolean;
+  ourFollow?: Follower | null;
+}
 
 export default function ProfilePageContent({
   profile,
-  isOurProfile=false,
-  ourFollow=null,
-}:{
-  profile:Profile;
-  isOurProfile?:boolean;
-  ourFollow:Follower|null;
-}) {
+  isOurProfile = false,
+  ourFollow = null,
+}: ProfilePageContentProps) {
   return (
     <AnimatedProfileContent>
-      <div className="space-y-4">
+      <div className="space-y-6 p-4">
         <ProfilePageInfo
           profile={profile}
           isOurProfile={isOurProfile}
           ourFollow={ourFollow}
         />
-        <ProfileNav
-          username={profile.username || ''}
-          isOurProfile={isOurProfile}
-        />
-        <section className="mt-4">
+        <ProfileNav isOurProfile={isOurProfile} username={profile.username || ''} />
+        <section className="mt-6">
           <Suspense fallback={<Preloader />}>
             <ProfilePosts email={profile.email} />
           </Suspense>
