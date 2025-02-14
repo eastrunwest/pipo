@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import PostsGrid from "@/components/PostsGrid";
 import { AnimatedPostsGrid } from './AnimatedPostsGrid';
+import ProfilePostsDisplay from './ProfilePostsDisplay';
 
 export default function BookmarkedPosts() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -16,7 +16,7 @@ export default function BookmarkedPosts() {
   return (
     <AnimatedPostsGrid>
       <div className="px-4">
-        <PostsGrid posts={posts} />
+        <ProfilePostsDisplay posts={posts} />
       </div>
     </AnimatedPostsGrid>
   );

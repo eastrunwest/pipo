@@ -4,6 +4,7 @@ import { Post } from "@prisma/client";
 import Link from "next/link";
 import Masonry from "react-masonry-css";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -21,6 +22,11 @@ const itemVariants = {
 };
 
 export default function PostsGrid({ posts = [] }: { posts?: Post[] }) {
+
+  useEffect(() => {
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 350);
+  }, [posts]);
+
   if (!posts || posts.length === 0) {
     return (
       <motion.div
