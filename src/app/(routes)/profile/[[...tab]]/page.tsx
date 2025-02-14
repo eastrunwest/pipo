@@ -3,7 +3,7 @@ import ProfilePageContent from "@/components/ProfilePageContent";
 import { prisma } from "@/db";
 import { redirect } from "next/navigation";
 
-export default async function ProfilePage() {
+export default async function ProfilePage({ params }: { params: { tab?: string[] } }) {
   const session = await auth();
   if (!session) {
     return redirect('/login');

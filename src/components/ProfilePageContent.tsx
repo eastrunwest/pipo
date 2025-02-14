@@ -1,9 +1,11 @@
 'use client';
 import React, { Suspense } from 'react';
+import { usePathname } from 'next/navigation';
 import AnimatedProfileContent from './AnimatedProfileContent';
 import ProfilePageInfo from './ProfilePageInfo';
 import ProfileNav from './ProfileNav';
 import ProfilePosts from './ProfilePosts';
+import BookmarkedPosts from './BookmarkedPosts';
 import Preloader from "@/components/Preloader";
 import { Profile, Follower } from "@prisma/client";
 
@@ -18,6 +20,10 @@ export default function ProfilePageContent({
   isOurProfile = false,
   ourFollow = null,
 }: ProfilePageContentProps) {
+
+  const pathname = usePathname() ?? '';
+  const bookmarkedActive = pathname.includes('bookmarked');
+
   return (
     <AnimatedProfileContent>
       <div className="space-y-6 p-4">
@@ -29,7 +35,11 @@ export default function ProfilePageContent({
         <ProfileNav isOurProfile={isOurProfile} username={profile.username || ''} />
         <section className="mt-6">
           <Suspense fallback={<Preloader />}>
-            <ProfilePosts email={profile.email} />
+            {bookmarkedActive ? (
+              <BookmarkedPosts />
+            ) : (
+              <ProfilePosts email={profile.email} />
+            )}
           </Suspense>
         </section>
       </div>

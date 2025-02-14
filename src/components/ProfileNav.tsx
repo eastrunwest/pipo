@@ -10,8 +10,8 @@ export default function ProfileNav({
   isOurProfile: boolean;
   username: string;
 }) {
-  const path = usePathname() ?? '';
-  const bookmarkedActive = path.includes('/bookmarked');
+  const pathname = usePathname() ?? '';
+  const bookmarkedActive = pathname.includes('bookmarked');
   const postsActive = !bookmarkedActive;
 
   const linkClass = (active: boolean) =>
@@ -22,11 +22,11 @@ export default function ProfileNav({
   return (
     <section className="mt-4">
       <div className="flex justify-center gap-8">
-        <Link className={linkClass(postsActive)} href={isOurProfile ? '/profile' : `/${username}`}>
+        <Link className={linkClass(postsActive)} href="/profile">
           Posts
         </Link>
         {isOurProfile && (
-          <Link className={linkClass(bookmarkedActive)} href={'/profile/bookmarked'}>
+          <Link className={linkClass(bookmarkedActive)} href="/profile/bookmarked">
             Bookmarked
           </Link>
         )}
