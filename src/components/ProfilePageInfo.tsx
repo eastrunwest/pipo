@@ -25,7 +25,6 @@ export default function ProfilePageInfo({
           </Link>
         )}
       </section>
-      {/* 缩小后的头像 */}
       <section className="flex justify-center">
         <div className="relative">
           <div className="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-indigo-500 to-purple-500">
