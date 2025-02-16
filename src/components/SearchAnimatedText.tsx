@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 const messages = [
   "搜索你感兴趣的议题",
+  "好看的皮囊还是有趣的灵魂",
   "川普是否会当选总统？",
   "你会选择你爱的人还是爱你的人结婚？",
   "你更喜欢狗还是更喜欢猫？",
