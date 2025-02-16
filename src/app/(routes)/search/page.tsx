@@ -1,6 +1,7 @@
 import Preloader from "@/components/Preloader";
 import SearchForm from "@/components/SearchForm";
 import SearchResults from "@/components/SearchResults";
+import AnimatedText from "@/components/SearchAnimatedText";
 import { Suspense } from "react";
 
 export default async function SearchPage({
@@ -12,10 +13,12 @@ export default async function SearchPage({
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-black flex items-center justify-center p-4">
       <div className="w-full max-w-3xl p-6 bg-black bg-opacity-50 backdrop-blur-lg rounded-xl shadow-2xl animate-fadeIn">
         <SearchForm />
-        {typeof query !== "undefined" && (
+        {query ? (
           <Suspense fallback={<Preloader />}>
             <SearchResults query={query} />
           </Suspense>
+        ) : (
+          <AnimatedText />
         )}
       </div>
     </div>
