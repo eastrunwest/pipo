@@ -42,7 +42,7 @@ export function EventDetailChart({
   const totalVoters = post.agreeCount + post.disagreeCount;
 
   return (
-    <Card className="flex flex-col bg-black/70 border border-gray-700 rounded-xl overflow-hidden shadow-lg">
+    <Card className="flex flex-col bg-transparent rounded-xl overflow-hidden shadow-lg">
       <CardHeader className="text-center p-4">
         <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
           {post.title}
@@ -131,11 +131,6 @@ export function EventDetailChart({
           <ProbabilityChart post={post} />
         </div>
       </CardContent>
-      <CardFooter className="p-4">
-        <div className="text-center text-sm italic text-gray-400">
-          真相只有一个，在你我的选择中
-        </div>
-      </CardFooter>
     </Card>
   );
 }

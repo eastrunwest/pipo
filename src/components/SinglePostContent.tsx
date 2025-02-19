@@ -28,7 +28,7 @@ export default function SinglePostContent({
   myDisagree: Disagree | null;
 }) {
   return (
-    <div className="max-w-full mx-auto bg-black/70 backdrop-blur-md rounded-xl shadow-lg p-4 space-y-6">
+    <div className="max-w-full mx-auto bg-black/50 backdrop-blur-md rounded-xl shadow-lg p-0 space-y-6">
       <div>
         <img
           className="w-full h-auto rounded-md"
