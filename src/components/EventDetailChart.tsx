@@ -1,8 +1,7 @@
+// EventDetailChart.tsx
 "use client"
 
-import { TrendingUp } from "lucide-react"
-import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
-
+import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 import {
   Card,
   CardContent,
@@ -10,27 +9,25 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-import { Post, Agree, Disagree } from "@prisma/client"
-import AgreeDisagreeBar from "./AgreeDisagreeBar"
-import ProbabilityChart from "./ProbabilityChart"
+} from "@/components/ui/chart";
+import { Post, Agree, Disagree } from "@prisma/client";
+import AgreeDisagreeBar from "./AgreeDisagreeBar";
+import ProbabilityChart from "./ProbabilityChart";
 
 const chartConfig = {
   agree: {
     label: "赞同",
-    color: "red",
   },
   disagree: {
     label: "反对",
-    color: "blue",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function EventDetailChart({
   post,
@@ -41,26 +38,45 @@ export function EventDetailChart({
   myAgree: Agree | null;
   myDisagree: Disagree | null;
 }) {
-  const chartData = [{agree: post.agreeCount, disagree: post.disagreeCount }];
+  const chartData = [{ agree: post.agreeCount, disagree: post.disagreeCount }];
   const totalVoters = post.agreeCount + post.disagreeCount;
 
   return (
-    <Card className="flex flex-col">
-      <CardHeader className="items-center pb-0">
-        <CardTitle>{post.title}</CardTitle>
-        <CardDescription>{post.description}</CardDescription>
+    <Card className="flex flex-col bg-black/70 border border-gray-700 rounded-xl overflow-hidden shadow-lg">
+      <CardHeader className="text-center p-4">
+        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+          {post.title}
+        </CardTitle>
+        <CardDescription className="mt-1 text-lg font-medium bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
+          {post.description}
+        </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col items-center pb-0">
+      <CardContent className="p-1 flex flex-col items-center">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square w-full max-w-[250px] mb-0"
+          className="w-full max-w-[300px] aspect-square mb-4"
         >
           <RadialBarChart
             data={chartData}
-            endAngle={180}
-            innerRadius={80}
+            startAngle={180}
+            endAngle={0}
+            innerRadius={60}
             outerRadius={130}
           >
+            <defs>
+              <linearGradient id="gradientDisagree" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#00f" />
+                <stop offset="100%" stopColor="#0ff" />
+              </linearGradient>
+              <linearGradient id="gradientAgree" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#f00" />
+                <stop offset="100%" stopColor="#ff0" />
+              </linearGradient>
+              <linearGradient id="gradientText" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#8e2de2" />
+                <stop offset="100%" stopColor="#4a00e0" />
+              </linearGradient>
+            </defs>
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
@@ -74,49 +90,54 @@ export function EventDetailChart({
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) - 16}
-                          className="fill-foreground text-2xl font-bold"
+                          fill="url(#gradientText)"
+                          className="text-2xl font-bold"
                         >
                           {totalVoters.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 4}
-                          className="fill-muted-foreground"
+                          fill="url(#gradientText)"
+                          className="text-sm"
                         >
                           投票人数
                         </tspan>
                       </text>
-                    )
+                    );
                   }
+                  return null;
                 }}
               />
             </PolarRadiusAxis>
             <RadialBar
-              dataKey="disagree"
-              fill="var(--color-disagree)"
+              dataKey="agree"
+              fill="url(#gradientAgree)"
               stackId="a"
-              cornerRadius={5}
-              className="stroke-transparent stroke-2"
+              cornerRadius={10}
+              className="stroke-transparent"
             />
             <RadialBar
-              dataKey="agree"
+              dataKey="disagree"
+              fill="url(#gradientDisagree)"
               stackId="a"
-              cornerRadius={5}
-              fill="var(--color-agree)"
-              className="stroke-transparent stroke-2"
+              cornerRadius={10}
+              className="stroke-transparent"
             />
           </RadialBarChart>
         </ChartContainer>
-        <AgreeDisagreeBar post={post} myAgree={myAgree} myDisagree={myDisagree}/> 
-        <ProbabilityChart post={post}/>
+        <div className="w-full flex flex-col gap-1">
+          <AgreeDisagreeBar post={post} myAgree={myAgree} myDisagree={myDisagree} />
+          <ProbabilityChart post={post} />
+        </div>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm pt-2">
-        <div className="leading-none text-muted-foreground">
+      <CardFooter className="p-4">
+        <div className="text-center text-sm italic text-gray-400">
           真相只有一个，在你我的选择中
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
 export default EventDetailChart;

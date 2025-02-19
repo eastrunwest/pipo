@@ -1,3 +1,4 @@
+// SinglePostPage.tsx
 import { getSinglePostData } from "@/actions";
 import SinglePostContent from "@/components/SinglePostContent";
 
@@ -14,7 +15,7 @@ export default async function SinglePostPage({ params }: { params: { id: string 
   } = await getSinglePostData(params.id);
 
   return (
-    <div className="min-h-screen w-full p-4">
+    <div className="min-h-screen w-full p-1">
       <SinglePostContent
         post={post}
         authorProfile={authorProfile}
