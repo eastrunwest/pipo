@@ -54,7 +54,7 @@ export function EventDetailChart({
       <CardContent className="p-1 flex flex-col items-center">
         <ChartContainer
           config={chartConfig}
-          className="w-full max-w-[300px] aspect-square mb-4"
+          className="w-full"
         >
           <RadialBarChart
             data={chartData}
