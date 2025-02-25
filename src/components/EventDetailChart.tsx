@@ -43,7 +43,7 @@ export function EventDetailChart({
 
   return (
     <Card className="flex flex-col bg-transparent rounded-xl overflow-hidden shadow-lg">
-      <CardHeader className="text-center p-4">
+      <CardHeader className="text-center p-1"> 
         <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
           {post.title}
         </CardTitle>
@@ -51,19 +51,19 @@ export function EventDetailChart({
           {post.description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-1 flex flex-col items-center">
+      <CardContent className="p-1 flex flex-col items-center gap-2"> 
         <ChartContainer
           config={chartConfig}
           className="w-full"
         >
           <RadialBarChart
-            width={window.innerWidth } 
+            width={window.innerWidth}
             height={window.innerWidth}
             data={chartData}
             startAngle={180}
             endAngle={0}
-            innerRadius={80} // Increased inner radius
-            outerRadius={150} // Increased outer radius
+            innerRadius={80}
+            outerRadius={150}
           >
             <defs>
               <linearGradient id="gradientDisagree" x1="0" y1="0" x2="1" y2="1">
