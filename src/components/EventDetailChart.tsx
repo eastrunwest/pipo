@@ -43,15 +43,7 @@ export function EventDetailChart({
 
   return (
     <Card className="flex flex-col bg-transparent rounded-xl overflow-hidden shadow-lg">
-      <CardHeader className="text-center p-1"> 
-        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-          {post.title}
-        </CardTitle>
-        <CardDescription className="mt-1 text-lg font-medium bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
-          {post.description}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="p-1 flex flex-col items-center gap-2"> 
+      <CardHeader className="text-center p-1">
         <ChartContainer
           config={chartConfig}
           className="w-full"
@@ -128,7 +120,15 @@ export function EventDetailChart({
             />
           </RadialBarChart>
         </ChartContainer>
-        <div className="w-full flex flex-col gap-1">
+        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+          {post.title}
+        </CardTitle>
+        <CardDescription className="mt-1 text-lg font-medium bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
+          {post.description}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="p-1 flex flex-col items-center">
+        <div className="w-full flex flex-col">
           <AgreeDisagreeBar post={post} myAgree={myAgree} myDisagree={myDisagree} />
           <ProbabilityChart post={post} />
         </div>
