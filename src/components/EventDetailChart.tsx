@@ -43,10 +43,10 @@ export function EventDetailChart({
 
   return (
     <Card className="flex flex-col bg-transparent rounded-xl overflow-hidden shadow-lg">
-      <CardHeader className="text-center p-1">
+      <CardHeader className="text-center p-1 flex flex-col items-center"> {/* Added flex layout */}
         <ChartContainer
           config={chartConfig}
-          className="w-full"
+          className="w-full m-0 p-0 flex-grow" // Set margin and padding to zero and allow it to grow
         >
           <RadialBarChart
             width={window.innerWidth}
@@ -120,15 +120,15 @@ export function EventDetailChart({
             />
           </RadialBarChart>
         </ChartContainer>
-        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent m-0 p-0 flex-shrink-0"> {/* Set margin and padding to zero and prevent shrinking */}
           {post.title}
         </CardTitle>
-        <CardDescription className="mt-1 text-lg font-medium bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
+        <CardDescription className="mt-1 text-lg font-medium bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent m-0 p-0 flex-shrink-0"> {/* Set margin and padding to zero and prevent shrinking */}
           {post.description}
         </CardDescription>
       </CardHeader>
       <CardContent className="p-1 flex flex-col items-center">
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col gap-0">
           <AgreeDisagreeBar post={post} myAgree={myAgree} myDisagree={myDisagree} />
           <ProbabilityChart post={post} />
         </div>
