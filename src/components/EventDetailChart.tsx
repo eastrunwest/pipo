@@ -57,11 +57,13 @@ export function EventDetailChart({
           className="w-full"
         >
           <RadialBarChart
+            width={window.innerWidth } 
+            height={window.innerWidth}
             data={chartData}
             startAngle={180}
             endAngle={0}
-            innerRadius={60}
-            outerRadius={130}
+            innerRadius={80} // Increased inner radius
+            outerRadius={150} // Increased outer radius
           >
             <defs>
               <linearGradient id="gradientDisagree" x1="0" y1="0" x2="1" y2="1">
